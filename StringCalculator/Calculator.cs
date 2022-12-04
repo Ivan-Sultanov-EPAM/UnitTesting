@@ -26,14 +26,18 @@ namespace StringCalculator
 
                 if (numbers.ElementAt(indexOfFirstDigit - 1) == '\n')
                 {
-                    var separator = numbers.Remove(indexOfFirstDigit - 1);
-                    numbersToSum.AddRange(numbers.Remove(0, indexOfFirstDigit - 1).Split(separator));
+                    var separators = GetSeparators(numbers.Remove(indexOfFirstDigit - 1));
+                    numbers = numbers.Remove(0, indexOfFirstDigit);
+
+                    numbersToSum.AddRange(numbers.Split(separators.ToArray(), StringSplitOptions.None));
                 }
 
                 if (numbers.ElementAt(indexOfFirstDigit - 1) == '-' && numbers.ElementAt(indexOfFirstDigit - 2) == '\n')
                 {
-                    var separator = numbers.Remove(indexOfFirstDigit - 2);
-                    numbersToSum.AddRange(numbers.Remove(0, indexOfFirstDigit - 2).Split(separator));
+                    var separators = GetSeparators(numbers.Remove(indexOfFirstDigit - 2));
+                    numbers = numbers.Remove(0, indexOfFirstDigit - 1);
+
+                    numbersToSum.AddRange(numbers.Split(separators.ToArray(), StringSplitOptions.None));
                 }
             }
 
@@ -54,6 +58,27 @@ namespace StringCalculator
             {
                 throw new ArgumentException();
             }
+        }
+
+        private static List<string> GetSeparators(string value)
+        {
+            var dictionary = new Dictionary<string, int>();
+            var result = new List<string>();
+
+            foreach (var ch in value)
+            {
+                if (!dictionary.TryAdd(ch.ToString(), 1))
+                {
+                    dictionary[ch.ToString()] += 1;
+                }
+            }
+
+            foreach (var dict in dictionary)
+            {
+                result.Add(string.Concat(Enumerable.Repeat(dict.Key, dict.Value)));
+            }
+
+            return result;
         }
     }
 }

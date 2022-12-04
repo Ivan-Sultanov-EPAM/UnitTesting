@@ -100,7 +100,7 @@ namespace StringCalculator.Tests
         [InlineData("-1", "Negatives not allowed -1")]
         [InlineData("1\n-2", "Negatives not allowed -2")]
         [InlineData("@\n-1@-2@-3@4", "Negatives not allowed -1, -2, -3")]
-        public void Should_Throw_ArgumentException_For_Negative_numbers(string input, string message)
+        public void Should_Throw_ArgumentException_For_Negative_Numbers(string input, string message)
         {
             //Arrange
             var inputString = input;
@@ -159,6 +159,23 @@ namespace StringCalculator.Tests
 
             //Assert
             Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(";$\n1;-2$-3", "Negatives not allowed -2, -3")]
+        [InlineData("##***\n-10##-20***-30", "Negatives not allowed -10, -20, -30")]
+        [InlineData("@@%^^^\n1@@2%3^^^-4", "Negatives not allowed -4")]
+        public void Should_Throw_ArgumentException_For_Negative_Numbers_With_Multiple_Delimiter(string input, string message)
+        {
+            //Arrange
+            var inputString = input;
+
+            //Act
+            Action action = () => Calculator.Add(inputString);
+
+            //Assert
+            var exception = Assert.Throws<ArgumentException>(action);
+            Assert.Equal(message, exception.Message);
         }
     }
 }
