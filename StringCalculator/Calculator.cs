@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace StringCalculator
 {
@@ -13,7 +14,14 @@ namespace StringCalculator
 
             var numbersToSum = numbers.Split(',', '\n');
 
-            return numbersToSum.Sum(int.Parse);
+            try
+            {
+                return numbersToSum.Sum(int.Parse);
+            }
+            catch (FormatException)
+            {
+                throw new ArgumentException();
+            }
         }
     }
 }
