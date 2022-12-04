@@ -95,5 +95,22 @@ namespace StringCalculator.Tests
             //Assert
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData("-1", "Negatives not allowed -1")]
+        [InlineData("1\n-2", "Negatives not allowed -2")]
+        [InlineData("@\n-1@-2@-3@4", "Negatives not allowed -1, -2, -3")]
+        public void Should_Throw_ArgumentException_For_Negative_numbers(string input, string message)
+        {
+            //Arrange
+            var inputString = input;
+
+            //Act
+            Action action = () => Calculator.Add(inputString);
+
+            //Assert
+            var exception = Assert.Throws<ArgumentException>(action);
+            Assert.Equal(message, exception.Message);
+        }
     }
 }
