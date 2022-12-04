@@ -79,5 +79,21 @@ namespace StringCalculator.Tests
             //Assert
             Assert.Throws<ArgumentException>(action);
         }
+
+        [Theory]
+        [InlineData(";\n1;2", 3)]
+        [InlineData("#\n1#2#3", 6)]
+        [InlineData("@\n1@2@3@4", 10)]
+        public void Should_Read_First_Line_As_A_Custom_Delimiter(string input, int expected)
+        {
+            //Arrange
+            var inputString = input;
+
+            //Act
+            var result = Calculator.Add(inputString);
+
+            //Assert
+            Assert.Equal(expected, result);
+        }
     }
 }
