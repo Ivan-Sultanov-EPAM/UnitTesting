@@ -11,7 +11,7 @@ namespace StringCalculator
                 return 0;
             }
 
-            var numbersToSum = numbers.Split(',');
+            var numbersToSum = numbers.Split(',', '\n');
 
             return numbersToSum.Sum(int.Parse);
         }
