@@ -20,14 +20,21 @@ namespace StringCalculator
             {
                 numbersToSum.AddRange(numbers.Split(',', '\n'));
             }
-
-            if (!char.IsDigit(numbers.ElementAt(0)) && numbers.ElementAt(1) == '\n')
+            else
             {
-                var separator = numbers.ElementAt(0);
+                var indexOfFirstDigit = numbers.IndexOf(numbers.FirstOrDefault(char.IsDigit));
 
-                numbers = numbers.Remove(0, 2);
+                if (numbers.ElementAt(indexOfFirstDigit - 1) == '\n')
+                {
+                    var separator = numbers.Remove(indexOfFirstDigit - 1);
+                    numbersToSum.AddRange(numbers.Remove(0, indexOfFirstDigit - 1).Split(separator));
+                }
 
-                numbersToSum.AddRange(numbers.Split(separator));
+                if (numbers.ElementAt(indexOfFirstDigit - 1) == '-' && numbers.ElementAt(indexOfFirstDigit - 2) == '\n')
+                {
+                    var separator = numbers.Remove(indexOfFirstDigit - 2);
+                    numbersToSum.AddRange(numbers.Remove(0, indexOfFirstDigit - 2).Split(separator));
+                }
             }
 
             try
