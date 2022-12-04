@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 namespace StringCalculator.Tests
@@ -62,6 +63,21 @@ namespace StringCalculator.Tests
 
             //Assert
             Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData("1,")]
+        [InlineData("1,\n")]
+        public void Should_Throw_ArgumentException_For_Extra_Delimiters(string input)
+        {
+            //Arrange
+            var inputString = input;
+
+            //Act
+            Action action = () => Calculator.Add(inputString);
+
+            //Assert
+            Assert.Throws<ArgumentException>(action);
         }
     }
 }
