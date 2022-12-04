@@ -1,10 +1,19 @@
-﻿namespace StringCalculator
+﻿using System.Linq;
+
+namespace StringCalculator
 {
     public class Calculator
     {
         public static int Add(string numbers)
         {
-            return numbers == "" ? 0 : int.Parse(numbers);
+            if (numbers == "")
+            {
+                return 0;
+            }
+
+            var numbersToSum = numbers.Split(',');
+
+            return numbersToSum.Sum(int.Parse);
         }
     }
 }
