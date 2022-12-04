@@ -15,7 +15,8 @@ namespace StringCalculator
                 return 0;
             }
 
-            if (char.IsDigit(numbers.ElementAt(0)))
+            if (char.IsDigit(numbers.ElementAt(0))
+                || (numbers.ElementAt(0) == '-' && char.IsDigit(numbers.ElementAt(1))))
             {
                 numbersToSum.AddRange(numbers.Split(',', '\n'));
             }
@@ -31,7 +32,15 @@ namespace StringCalculator
 
             try
             {
-                return numbersToSum.Sum(int.Parse);
+                var allNumbers = numbersToSum.Select(int.Parse).ToList();
+                var negativeNumbers = allNumbers.Where(n => n < 0).ToList();
+
+                if (negativeNumbers.Count() != 0)
+                {
+                    throw new ArgumentException($"Negatives not allowed {string.Join(", ", negativeNumbers)}");
+                }
+
+                return allNumbers.Sum();
             }
             catch (FormatException)
             {
