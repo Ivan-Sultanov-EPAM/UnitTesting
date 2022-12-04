@@ -6,6 +6,11 @@ namespace StringCalculator
     {
         public static int Add(string numbers)
         {
+            if (numbers == "")
+            {
+                return 0;
+            }
+
             throw new NotImplementedException();
         }
     }
