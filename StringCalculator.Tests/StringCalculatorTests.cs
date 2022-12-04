@@ -16,5 +16,18 @@ namespace StringCalculator.Tests
             //Assert
             Assert.Equal(0, result);
         }
+
+        [Fact]
+        public void Should_Return_Number()
+        {
+            //Arrange
+            var stringWithNumber = "1";
+
+            //Act
+            var result = Calculator.Add(stringWithNumber);
+
+            //Assert
+            Assert.Equal(1, result);
+        }
     }
 }
