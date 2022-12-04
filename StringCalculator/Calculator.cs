@@ -32,7 +32,8 @@ namespace StringCalculator
 
             try
             {
-                var allNumbers = numbersToSum.Select(int.Parse).ToList();
+                var allNumbers = numbersToSum.Select(int.Parse).Where(n => n < 1000).ToList();
+
                 var negativeNumbers = allNumbers.Where(n => n < 0).ToList();
 
                 if (negativeNumbers.Count() != 0)
