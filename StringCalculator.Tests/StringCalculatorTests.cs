@@ -30,17 +30,22 @@ namespace StringCalculator.Tests
             Assert.Equal(1, result);
         }
 
-        [Fact]
-        public void Should_Return_Sum_Of_Two_Numbers_With_Comma_Delimiter()
+        [Theory]
+        [InlineData("1,2", 3)]
+        [InlineData("1,2,3", 6)]
+        [InlineData("1,2,3,4", 10)]
+        [InlineData("1,2,3,4,5", 15)]
+        [InlineData("0,2,3,4,100,500", 609)]
+        public void Should_Return_Sum_Of_Unknown_Amount_Of_Numbers_With_Comma_Delimiter(string input, int expected)
         {
             //Arrange
-            var stringWithTwoNumbers = "1,2";
+            var inputString = input;
 
             //Act
-            var result = Calculator.Add(stringWithTwoNumbers);
+            var result = Calculator.Add(inputString);
 
             //Assert
-            Assert.Equal(3, result);
+            Assert.Equal(expected, result);
         }
     }
 }
