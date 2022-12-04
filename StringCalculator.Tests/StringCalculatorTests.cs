@@ -144,5 +144,21 @@ namespace StringCalculator.Tests
             //Assert
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData(";$\n1;2$3", 6)]
+        [InlineData("##***\n10##20***30", 60)]
+        [InlineData("@@%^^^\n1@@2%3^^^4", 10)]
+        public void Should_Allow_Multiple_Delimiters_Of_Any_Length(string input, int expected)
+        {
+            //Arrange
+            var inputString = input;
+
+            //Act
+            var result = Calculator.Add(inputString);
+
+            //Assert
+            Assert.Equal(expected, result);
+        }
     }
 }
