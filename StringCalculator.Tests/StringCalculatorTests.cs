@@ -112,5 +112,21 @@ namespace StringCalculator.Tests
             var exception = Assert.Throws<ArgumentException>(action);
             Assert.Equal(message, exception.Message);
         }
+
+        [Theory]
+        [InlineData("1001", 0)]
+        [InlineData(";\n1;1001", 1)]
+        [InlineData("#\n1#2#1100", 3)]
+        public void Should_Ignore_Numbers_Bigger_Than_1000(string input, int expected)
+        {
+            //Arrange
+            var inputString = input;
+
+            //Act
+            var result = Calculator.Add(inputString);
+
+            //Assert
+            Assert.Equal(expected, result);
+        }
     }
 }
