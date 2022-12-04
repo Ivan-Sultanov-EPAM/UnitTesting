@@ -47,5 +47,21 @@ namespace StringCalculator.Tests
             //Assert
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData("1\n2", 3)]
+        [InlineData("1\n2,3", 6)]
+        [InlineData("1,2\n3\n4", 10)]
+        public void Should_Allow_NewLine_As_Delimiter(string input, int expected)
+        {
+            //Arrange
+            var inputString = input;
+
+            //Act
+            var result = Calculator.Add(inputString);
+
+            //Assert
+            Assert.Equal(expected, result);
+        }
     }
 }
