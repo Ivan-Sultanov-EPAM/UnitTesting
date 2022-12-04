@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace StringCalculator
@@ -7,12 +8,26 @@ namespace StringCalculator
     {
         public static int Add(string numbers)
         {
+            var numbersToSum = new List<string>();
+
             if (numbers == "")
             {
                 return 0;
             }
 
-            var numbersToSum = numbers.Split(',', '\n');
+            if (char.IsDigit(numbers.ElementAt(0)))
+            {
+                numbersToSum.AddRange(numbers.Split(',', '\n'));
+            }
+
+            if (!char.IsDigit(numbers.ElementAt(0)) && numbers.ElementAt(1) == '\n')
+            {
+                var separator = numbers.ElementAt(0);
+
+                numbers = numbers.Remove(0, 2);
+
+                numbersToSum.AddRange(numbers.Split(separator));
+            }
 
             try
             {
