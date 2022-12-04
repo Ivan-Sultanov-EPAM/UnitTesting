@@ -1,17 +1,10 @@
-﻿using System;
-
-namespace StringCalculator
+﻿namespace StringCalculator
 {
     public class Calculator
     {
         public static int Add(string numbers)
         {
-            if (numbers == "")
-            {
-                return 0;
-            }
-
-            throw new NotImplementedException();
+            return numbers == "" ? 0 : int.Parse(numbers);
         }
     }
 }
