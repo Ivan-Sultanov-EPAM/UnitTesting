@@ -45,6 +45,15 @@ namespace LCDDigits
             var sb1 = new StringBuilder();
             var sb2 = new StringBuilder();
             var sb3 = new StringBuilder();
+            var isNegative = number < 0;
+
+            if (isNegative)
+            {
+                number *= -1;
+                sb1.Append("  ");
+                sb2.Append("_ ");
+                sb3.Append("  ");
+            }
 
             do
             {
