@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace LCDDigits
 {
@@ -38,9 +39,31 @@ namespace LCDDigits
                  "  |" }
         };
 
-        public static string Convert(int digit)
+        public static string Convert(int number)
         {
-            return Digits[digit];
+            var digits = new List<int>();
+            var sb1 = new StringBuilder();
+            var sb2 = new StringBuilder();
+            var sb3 = new StringBuilder();
+
+            do
+            {
+                var temp = number % 10;
+                digits.Add(number % 10);
+                number = (number - temp) / 10;
+            } while (number > 0);
+
+            digits.Reverse();
+
+            foreach (var digit in digits)
+            {
+                var numParts = Digits[digit].Split('\n');
+                sb1.Append(numParts[0]);
+                sb2.Append(numParts[1]);
+                sb3.Append(numParts[2]);
+            }
+
+            return sb1.Append("\n").Append(sb2).Append("\n").Append(sb3).ToString();
         }
     }
 }
