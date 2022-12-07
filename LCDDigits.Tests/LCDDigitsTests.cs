@@ -46,5 +46,27 @@ namespace LCDDigits.Tests
             //Assert
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData(125, "    _  _ \n" +
+                         "  | _||_ \n" +
+                         "  ||_  _|")]
+        [InlineData(910, " _     _ \n" +
+                         "|_|  || |\n" +
+                         "  |  ||_|")]
+        [InlineData(8888, " _  _  _  _ \n" +
+                          "|_||_||_||_|\n" +
+                          "|_||_||_||_|")]
+        public void Should_Print_Any_Positive_Integer(int input, string expected)
+        {
+            //Arrange
+            var digit = input;
+
+            //Act
+            var result = LCDConverter.Convert(digit);
+
+            //Assert
+            Assert.Equal(expected, result);
+        }
     }
 }
